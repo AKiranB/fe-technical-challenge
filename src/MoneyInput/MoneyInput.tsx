@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 interface MoneyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  //I prefer this to a standard String, because it's more explicit
   locale?: 'de-DE' | 'en-US' | 'fr-FR' | 'nl-NL' | 'es-ES' | 'it-IT' | 'pt-PT'
   error?: boolean
   onValueChange: (value: number) => void
@@ -18,21 +17,32 @@ export default function MoneyInput({
   ...props
 }: MoneyInputProps): JSX.Element {
   const [inputValue, setInputValue] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
+
+  const currencyFormatter = useMemo(() => {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'EUR',
+    })
+  }, [locale])
+
+  useEffect(() => {
+    if (!isFocused) {
+      const formattedValue = currencyFormatter.format(value / 100)
+      setInputValue(formattedValue)
+    }
+  }, [value, currencyFormatter, isFocused])
 
   const handleFocus = () => {
-    //Converts back to a raw value for editing
     setInputValue((value / 100).toString())
+    setIsFocused(true)
   }
 
   const handleBlur = () => {
-    //This formats the value in the input field
-    //OnBlur, I reckon this is better UX
-    const formattedValue = new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(value / 100)
+    const formattedValue = currencyFormatter.format(value / 100)
     setInputValue(formattedValue)
     onValueChange(Number(inputValue) * 100)
+    setIsFocused(false)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +53,7 @@ export default function MoneyInput({
     onValueChange(valueInCents)
   }
 
+  //TODO:Styling
   return (
     <form>
       <label htmlFor="money-input">{title}</label>

@@ -2,8 +2,8 @@ import { Meta } from '@storybook/react'
 import MoneyInput from './MoneyInput'
 import { useState } from 'react'
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
+  //TODO: Fully add story Args
   title: 'Components/MoneyInput',
   component: MoneyInput,
   parameters: {
@@ -31,6 +31,7 @@ export default {
 } satisfies Meta<typeof MoneyInput>
 
 export const MoneyInputComponent = () => {
+  //TODO: Add args to Component eg Value
   const [value, setValue] = useState(0)
   return <MoneyInput title="Money Input" value={value} onValueChange={setValue} />
 }
