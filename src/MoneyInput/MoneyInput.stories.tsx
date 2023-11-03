@@ -10,6 +10,11 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
+    title: {
+      control: {
+        type: 'text',
+      },
+    },
     disabled: {
       control: {
         type: 'boolean',
