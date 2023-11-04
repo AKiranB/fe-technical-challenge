@@ -21,25 +21,19 @@ export default {
         type: 'boolean',
       },
     },
-    value: {
-      control: {
-        type: 'number',
-      },
-      default: 0,
-    },
   },
 } satisfies Meta<typeof MoneyInput>
 
-export const MoneyInputComponent = () => {
+export const MoneyInputComponent = ({ ...args }) => {
   //TODO: Add args to Component eg Value
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(500)
 
   const handleSetValue = (value: number) => {
     setValue(value)
   }
   return (
     <div style={{ width: '512px' }}>
-      <MoneyInput title="Label" value={value} onValueChange={handleSetValue} />
+      <MoneyInput title="Label" {...args} value={value} onValueChange={handleSetValue} />
     </div>
   )
 }

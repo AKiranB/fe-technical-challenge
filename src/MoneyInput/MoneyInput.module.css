@@ -21,7 +21,6 @@ input {
 }
 
 input:hover {
-  
     box-shadow: 0 1px 0 0 var(--betterplace-color-gray-200)
 }
 
@@ -33,21 +32,22 @@ input:focus {
 }
 
 .input-error {
-    /* Empty style set for error state */
+
 }
 
 .input-error:hover {
-    /* Empty style set for error state when hovering */
+  
 }
 
 .input-error:focus {
-    /* Empty style set for error state when focused */
+
 }
+  
 
 input:disabled {
-    /* Empty style set for disabled state */
+ 
 }
 
 input:disabled:focus {
-    /* Empty style set for disabled state when focused */
+  
 }
