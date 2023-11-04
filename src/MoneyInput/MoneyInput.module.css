@@ -6,13 +6,13 @@ form {
     width: 100%;
 }
 
-label{
+label {
     font: var(--betterplace-typography-xs);
     margin-bottom: 4px;
 }
 
 input {
-    border: 1px solid var(--betterplace-color-gray-400);
+    border: 1px solid var(--betterplace-color-gray-300);
     height: var( --betterplace-dimension-3);
     border-radius: 4px;
     padding-left: 8px ;
@@ -21,33 +21,29 @@ input {
 }
 
 input:hover {
-    box-shadow: 0 1px 0 0 var(--betterplace-color-gray-200)
+    box-shadow: var(--betterplace-shadow-outer-neutral-soft-1);
 }
 
 input:focus {
     outline: none; 
     box-shadow: 
         0 0 0 1px var(--betterplace-color-light), 
-        0 0 0 2px var(--betterplace-color-green-700); 
+        0 0 0 2.5px var(--betterplace-color-green-700); 
 }
 
-.input-error {
-
+input.error {
+    border: 1.5px solid var(--betterplace-color-red-500);
 }
 
-.input-error:hover {
-  
-}
-
-.input-error:focus {
-
-}
-  
 
 input:disabled {
+    background-color: var(--betterplace-color-gray-100);
+    color: var(--betterplace-color-gray-500);
  
 }
 
 input:disabled:focus {
-  
+    box-shadow: 
+    0 0 0 1px var(--betterplace-color-light), 
+    0 0 0 2.5px var(--betterplace-color-green-700); 
 }
