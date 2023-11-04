@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import _styles from './MoneyInput.module.css'
 
 interface MoneyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  locale?: 'de-DE' | 'en-US' | 'fr-FR' | 'nl-NL' | 'es-ES' | 'it-IT' | 'pt-PT'
+  locale?: 'de-DE' | 'en-US'
   error?: boolean
   onValueChange: (value: number) => void
   value: number
@@ -19,6 +20,7 @@ export default function MoneyInput({
   const [inputValue, setInputValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 
+  //TODO:Fix edge cases
   const currencyFormatter = useMemo(() => {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
@@ -29,7 +31,9 @@ export default function MoneyInput({
   useEffect(() => {
     if (!isFocused) {
       const formattedValue = currencyFormatter.format(value / 100)
-      setInputValue(formattedValue)
+      if (inputValue !== formattedValue) {
+        setInputValue(formattedValue)
+      }
     }
   }, [value, currencyFormatter, isFocused])
 
@@ -38,6 +42,7 @@ export default function MoneyInput({
     setIsFocused(true)
   }
 
+  //TODO: try to limit rerenders/improve performance
   const handleBlur = () => {
     const formattedValue = currencyFormatter.format(value / 100)
     setInputValue(formattedValue)
@@ -49,14 +54,16 @@ export default function MoneyInput({
     const rawValue = event.target.value.replace(/[^\d.,-]/g, '')
     setInputValue(rawValue)
     const valueInCents = Math.round(Number(rawValue.replace(',', '.')) * 100)
-    console.log(`Emitting value in cents: ${valueInCents}`)
+    // console.log(`Emitting value in cents: ${valueInCents}`)
     onValueChange(valueInCents)
   }
 
   //TODO:Styling
   return (
-    <form>
-      <label htmlFor="money-input">{title}</label>
+    <form className={_styles.form}>
+      <label className={_styles.label} htmlFor="money-input">
+        {title}
+      </label>
       <input
         id="money-input"
         onFocus={handleFocus}
@@ -64,7 +71,7 @@ export default function MoneyInput({
         value={inputValue}
         onChange={handleChange}
         {...props}
-        className={error ? 'error' : undefined}
+        className={`${_styles.input} ${error ? _styles.error : ''}`}
       />
     </form>
   )

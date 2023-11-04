@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
+form {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label{
+    font: var(--betterplace-typography-xs);
+    margin-bottom: 4px;
+}
+
+input {
+    border: 1px solid var(--betterplace-color-gray-400);
+    height: var( --betterplace-dimension-3);
+    border-radius: 4px;
+    padding-left: 8px ;
+    font: var(--betterplace-typography-sm);
+    width: 100%;
+}
+
+input:hover {
+  
+    box-shadow: 0 1px 0 0 var(--betterplace-color-gray-200)
+}
+
+input:focus {
+    outline: none; 
+    box-shadow: 
+        0 0 0 1px var(--betterplace-color-light), 
+        0 0 0 2px var(--betterplace-color-green-700); 
+}
+
+.input-error {
+    /* Empty style set for error state */
+}
+
+.input-error:hover {
+    /* Empty style set for error state when hovering */
+}
+
+.input-error:focus {
+    /* Empty style set for error state when focused */
+}
+
+input:disabled {
+    /* Empty style set for disabled state */
+}
+
+input:disabled:focus {
+    /* Empty style set for disabled state when focused */
+}

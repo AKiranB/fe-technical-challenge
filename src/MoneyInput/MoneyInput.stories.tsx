@@ -33,5 +33,13 @@ export default {
 export const MoneyInputComponent = () => {
   //TODO: Add args to Component eg Value
   const [value, setValue] = useState(0)
-  return <MoneyInput title="Money Input" value={value} onValueChange={setValue} />
+
+  const handleSetValue = (value: number) => {
+    setValue(value)
+  }
+  return (
+    <div style={{ width: '512px' }}>
+      <MoneyInput title="Label" value={value} onValueChange={handleSetValue} />
+    </div>
+  )
 }
