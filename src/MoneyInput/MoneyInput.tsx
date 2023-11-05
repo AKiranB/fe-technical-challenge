@@ -36,24 +36,38 @@ export default function MoneyInput({
     }
   }, [value, currencyFormatter, isFocused])
 
+  const convertToCents = (value: number): number => {
+    const centsValue = Math.round(value * 100)
+    return centsValue
+  }
+
+  const sanitizeValue = (value: string) => {
+    const sanitizedValue = Number(value.replace(',', '.'))
+    return sanitizedValue
+  }
+
   const handleFocus = () => {
     setInputValue((value / 100).toString())
     setIsFocused(true)
   }
 
   const handleBlur = () => {
-    const formattedValue = currencyFormatter.format(value / 100)
-    setInputValue(formattedValue)
-    const valueInCents = Number(inputValue) * 100
-    onValueChange(valueInCents)
-    console.log(`Value in cents: ${valueInCents}`)
+    const sanitizedValue = sanitizeValue(inputValue)
+    if (!isNaN(sanitizedValue)) {
+      const valueInCents = convertToCents(sanitizedValue)
+      onValueChange(valueInCents)
+      console.log(`Value in cents: ${valueInCents}`)
+      const formattedValue = currencyFormatter.format(sanitizedValue / 100)
+      setInputValue(formattedValue)
+    }
     setIsFocused(false)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = event.target.value.replace(/[^\d.,-]/g, '')
     setInputValue(rawValue)
-    const valueInCents = Math.round(Number(rawValue.replace(',', '.')) * 100)
+    const sanitizedValue = sanitizeValue(rawValue)
+    const valueInCents = convertToCents(sanitizedValue)
     console.log(`Value in cents: ${valueInCents}`)
     onValueChange(valueInCents)
   }

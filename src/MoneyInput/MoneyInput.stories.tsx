@@ -50,6 +50,7 @@ export const Default = ({ ...args }) => {
   const [value, setValue] = useState(500)
 
   const handleSetValue = (value: number) => {
+    console.log('in hte parent', value)
     setValue(value)
   }
   return (
