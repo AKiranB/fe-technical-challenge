@@ -3,7 +3,6 @@ import MoneyInput from './MoneyInput'
 import { useState } from 'react'
 
 export default {
-  //TODO: Fully add story Args
   title: 'Components/MoneyInput',
   component: MoneyInput,
   parameters: {
@@ -12,20 +11,42 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     title: {
+      description: 'Label for the input',
       control: {
         type: 'text',
       },
     },
     disabled: {
+      description: 'Disable the input',
       control: {
         type: 'boolean',
+      },
+    },
+    error: {
+      description: 'Enable the Inputs Error state',
+      control: {
+        type: 'boolean',
+      },
+    },
+    locale: {
+      description: 'Locale for the input that formats the displayed value',
+    },
+    value: {
+      description: 'Controlled value of the input',
+      control: {
+        type: 'number',
+      },
+    },
+    onValueChange: {
+      description: 'Callback for the value change',
+      control: {
+        type: 'function',
       },
     },
   },
 } satisfies Meta<typeof MoneyInput>
 
-export const MoneyInputComponent = ({ ...args }) => {
-  //TODO: Add args to Component eg Value
+export const Default = ({ ...args }) => {
   const [value, setValue] = useState(500)
 
   const handleSetValue = (value: number) => {

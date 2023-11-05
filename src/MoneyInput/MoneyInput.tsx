@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react'
 import _styles from './MoneyInput.module.css'
 
 interface MoneyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  locale?: 'de-DE' | 'en-US'
+  locale?: 'de-DE' | 'en-US' | 'en-GB' | 'fr-FR'
   error?: boolean
   onValueChange: (value: number) => void
   value: number
@@ -20,7 +20,6 @@ export default function MoneyInput({
   const [inputValue, setInputValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 
-  //TODO:Fix edge cases
   const currencyFormatter = useMemo(() => {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
@@ -42,11 +41,12 @@ export default function MoneyInput({
     setIsFocused(true)
   }
 
-  //TODO: try to limit rerenders/improve performance
   const handleBlur = () => {
     const formattedValue = currencyFormatter.format(value / 100)
     setInputValue(formattedValue)
-    onValueChange(Number(inputValue) * 100)
+    const valueInCents = Number(inputValue) * 100
+    onValueChange(valueInCents)
+    console.log(`Value in cents: ${valueInCents}`)
     setIsFocused(false)
   }
 
@@ -54,11 +54,10 @@ export default function MoneyInput({
     const rawValue = event.target.value.replace(/[^\d.,-]/g, '')
     setInputValue(rawValue)
     const valueInCents = Math.round(Number(rawValue.replace(',', '.')) * 100)
-    // console.log(`Emitting value in cents: ${valueInCents}`)
+    console.log(`Value in cents: ${valueInCents}`)
     onValueChange(valueInCents)
   }
 
-  //TODO:Styling
   return (
     <form className={_styles.form}>
       <label className={_styles.label} htmlFor="money-input">
