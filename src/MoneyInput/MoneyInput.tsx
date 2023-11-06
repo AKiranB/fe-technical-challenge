@@ -53,11 +53,9 @@ export default function MoneyInput({
   const handleBlur = () => {
     if (disabled) return
     const sanitizedValue = sanitizeValue(inputValue)
-    if (!isNaN(sanitizedValue)) {
-      const valueInCents = convertToCents(sanitizedValue)
-      console.log(`Value in cents: ${valueInCents}`)
-      onValueChange(valueInCents)
-    }
+    const valueInCents = convertToCents(sanitizedValue)
+    console.log(`Value in cents: ${valueInCents}`)
+    onValueChange(valueInCents)
     setIsFocused(false)
   }
 
