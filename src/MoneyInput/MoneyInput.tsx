@@ -22,12 +22,20 @@ export default function MoneyInput({
   const [inputValue, setInputValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
 
+  //--> I considered storing the users rawInput in a seperate state
+  //--> To be shown to them when the input is focused
+  //--> But I decided against it. As if it is a invalid format
+  //--> It is confusing to show it to them again
+
   const currencyFormatter = useMemo(() => {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: 'EUR',
     })
   }, [locale])
+
+  //--> I've decided to keep this is the single place where the input is formatted
+  //--> This will run when the handleBlur is called anyway
 
   useEffect(() => {
     if (!isFocused) {
@@ -53,8 +61,16 @@ export default function MoneyInput({
     setIsFocused(false)
   }
 
+  //--> One option could be to control the users input to adhere to a valid
+  //--> currency format. But this would require clear communication with the user
+  //--> Instead it is formatted onblur, losing some of their original formatting
+  //--> This is unfortunate
+
+  //--> This could be debounced depending on how the value is being used
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = event.target.value.replace(/[^\d.,-]/g, '')
+    //Prevent processing the value if no valid character has been added to it
     if (rawValue !== inputValue) {
       setInputValue(rawValue)
       const sanitizedValue = sanitizeValue(rawValue)
