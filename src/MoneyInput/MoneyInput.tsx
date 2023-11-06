@@ -42,8 +42,13 @@ export default function MoneyInput({
   }
 
   const sanitizeValue = (value: string) => {
-    const sanitizedValue = Number(value.replace(',', '.'))
-    return sanitizedValue
+    value = value.replace(/[^\d,.]+/g, '')
+    const parts = value.split(/[,.]/)
+    if (parts.length > 2) {
+      value = parts.slice(0, -1).join('') + '.' + parts.slice(-1)
+    }
+    const sanitizedValue = parseFloat(value.replace(/,/g, '.'))
+    return !isNaN(sanitizedValue) ? sanitizedValue : 0
   }
 
   const handleFocus = () => {
