@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
+
+form {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+label {
+    font: var(--betterplace-typography-xs);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+input {
+    border: 1px solid var(--betterplace-color-gray-300);
+    height: var( --betterplace-dimension-3);
+    border-radius: 4px;
+    padding-left: 8px ;
+    font: var(--betterplace-typography-sm);
+    width: 100%;
+}
+
+input:hover {
+    box-shadow: var(--betterplace-shadow-outer-neutral-soft-1);
+}
+
+input:focus {
+    outline: none; 
+    box-shadow: 
+        0 0 0 1px var(--betterplace-color-light), 
+        0 0 0 2.5px var(--betterplace-color-green-700); 
+}
+
+input:not(:read-only).error {
+    border: 1.5px solid var(--betterplace-color-red-500);
+}
+
+input:read-only {
+    background-color: var(--betterplace-color-gray-100);
+    color: var(--betterplace-color-gray-500);
+}
+
