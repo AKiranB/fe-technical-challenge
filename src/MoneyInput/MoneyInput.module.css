@@ -32,7 +32,7 @@ input:focus {
         0 0 0 2.5px var(--betterplace-color-green-700); 
 }
 
-input:not(:disabled).error {
+input:not(:read-only).error {
     border: 1.5px solid var(--betterplace-color-red-500);
 }
 
