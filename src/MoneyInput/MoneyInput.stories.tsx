@@ -29,14 +29,15 @@ export default {
       },
     },
     locale: {
-      description: 'Locale for the input that formats the displayed value',
+      description:
+        'Locale for the input that formats the displayed value. This is applied when the component is not focused',
     },
     value: {
       description: 'Controlled value of the input',
       control: {
         type: 'number',
       },
-      defaultValue: 24000,
+      defaultValue: 1000,
     },
     onValueChange: {
       description: 'Callback for the value change',
@@ -44,19 +45,44 @@ export default {
         type: 'function',
       },
     },
+    width: {
+      description: 'Width of the input, in this case affecting the width of the container',
+      defaultValue: '512',
+      control: {
+        type: 'text',
+      },
+    },
   },
 } satisfies Meta<typeof MoneyInput>
 
-export const Default = ({ ...args }) => {
+const MoneyInputComponent = ({ ...args }) => {
   const [value, setValue] = useState(0)
-
   const handleSetValue = (value: number) => {
-    console.log('in hte parent', value)
     setValue(value)
   }
+  return <MoneyInput title="Label" {...args} value={value} onValueChange={handleSetValue} />
+}
+
+//This is more the typical usage of the component
+export const Default = ({ ...args }) => {
+  return (
+    <div style={{ width: `${args.width}px` }}>
+      <MoneyInputComponent {...args} />
+    </div>
+  )
+}
+
+// Created this to demonstrate the Input
+// updating on change of the value prop
+export const ControlledByStoryBook = ({ ...args }) => {
   return (
     <div style={{ width: '512px' }}>
-      <MoneyInput title="Label" {...args} value={value} onValueChange={handleSetValue} />
+      <MoneyInput
+        value={args.value || 0}
+        onValueChange={(value) => console.log('value changed', value)}
+        title={args.title || 'Label'}
+        {...args}
+      />
     </div>
   )
 }
