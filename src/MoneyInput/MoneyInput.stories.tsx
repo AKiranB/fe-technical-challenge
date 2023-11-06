@@ -36,6 +36,7 @@ export default {
       control: {
         type: 'number',
       },
+      defaultValue: 24000,
     },
     onValueChange: {
       description: 'Callback for the value change',
@@ -47,7 +48,7 @@ export default {
 } satisfies Meta<typeof MoneyInput>
 
 export const Default = ({ ...args }) => {
-  const [value, setValue] = useState(500)
+  const [value, setValue] = useState(0)
 
   const handleSetValue = (value: number) => {
     console.log('in hte parent', value)
