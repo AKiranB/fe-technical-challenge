@@ -78,6 +78,8 @@ export default function MoneyInput({
         onFocus={handleFocus}
         onBlur={handleBlur}
         value={inputValue}
+        aria-label={title}
+        aria-readonly={disabled ? 'true' : 'false'}
         onChange={handleChange}
         readOnly={disabled}
         {...props}
