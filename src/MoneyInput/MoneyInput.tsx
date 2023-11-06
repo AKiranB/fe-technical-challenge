@@ -16,6 +16,7 @@ export default function MoneyInput({
   value,
   onValueChange,
   title,
+  disabled,
   ...props
 }: MoneyInputProps): JSX.Element {
   const [inputValue, setInputValue] = useState('')
@@ -38,6 +39,7 @@ export default function MoneyInput({
   }, [value, currencyFormatter, isFocused])
 
   const handleFocus = () => {
+    if (disabled) return
     setInputValue((value / 100).toString())
     setIsFocused(true)
   }
@@ -56,11 +58,13 @@ export default function MoneyInput({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = event.target.value.replace(/[^\d.,-]/g, '')
-    setInputValue(rawValue)
-    const sanitizedValue = sanitizeValue(rawValue)
-    const valueInCents = convertToCents(sanitizedValue)
-    console.log(`Value in cents: ${valueInCents}`)
-    onValueChange(valueInCents)
+    if (rawValue !== inputValue) {
+      setInputValue(rawValue)
+      const sanitizedValue = sanitizeValue(rawValue)
+      const valueInCents = convertToCents(sanitizedValue)
+      console.log(`Value in cents: ${valueInCents}`)
+      onValueChange(valueInCents)
+    }
   }
 
   return (
@@ -74,6 +78,7 @@ export default function MoneyInput({
         onBlur={handleBlur}
         value={inputValue}
         onChange={handleChange}
+        readOnly={disabled}
         {...props}
         className={`${_styles.input} ${error ? _styles.error : ''}`}
       />

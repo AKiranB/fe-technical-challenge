@@ -8,6 +8,7 @@ form {
 
 label {
     font: var(--betterplace-typography-xs);
+    font-weight: 600;
     margin-bottom: 4px;
 }
 
@@ -35,14 +36,8 @@ input:not(:disabled).error {
     border: 1.5px solid var(--betterplace-color-red-500);
 }
 
-input:disabled {
+input:read-only {
     background-color: var(--betterplace-color-gray-100);
     color: var(--betterplace-color-gray-500);
- 
 }
 
-input:disabled:focus {
-    box-shadow: 
-    0 0 0 1px var(--betterplace-color-light), 
-    0 0 0 2.5px var(--betterplace-color-green-700); 
-}
