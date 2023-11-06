@@ -55,21 +55,21 @@ export default {
   },
 } satisfies Meta<typeof MoneyInput>
 
-const MoneyInputComponent = ({ ...args }) => {
+const MoneyInputParentComponent = ({ ...args }) => {
   const [value, setValue] = useState(0)
   const handleSetValue = (value: number) => {
     setValue(value)
   }
-  return <MoneyInput title="Label" {...args} value={value} onValueChange={handleSetValue} />
+  return (
+    <div style={{ width: `${args.width}px` }}>
+      <MoneyInput title="Label" {...args} value={value} onValueChange={handleSetValue} />
+    </div>
+  )
 }
 
 //This is more the typical usage of the component
 export const Default = ({ ...args }) => {
-  return (
-    <div style={{ width: `${args.width}px` }}>
-      <MoneyInputComponent {...args} />
-    </div>
-  )
+  return <MoneyInputParentComponent {...args} />
 }
 
 // Created this to demonstrate the Input

@@ -31,10 +31,9 @@ input:focus {
         0 0 0 2.5px var(--betterplace-color-green-700); 
 }
 
-input.error {
+input:not(:disabled).error {
     border: 1.5px solid var(--betterplace-color-red-500);
 }
-
 
 input:disabled {
     background-color: var(--betterplace-color-gray-100);

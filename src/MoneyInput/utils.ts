@@ -1,8 +1,11 @@
+//Convert To Cents
 const convertToCents = (value: number): number => {
   const centsValue = Math.round(value * 100)
   return centsValue
 }
 
+//Force sanitization of user input
+//To prevent the formatter from breaking
 const sanitizeValue = (value: string) => {
   value = value.replace(/[^\d,.]+/g, '')
   const parts = value.split(/[,.]/)
