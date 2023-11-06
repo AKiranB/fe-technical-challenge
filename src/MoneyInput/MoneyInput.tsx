@@ -32,9 +32,7 @@ export default function MoneyInput({
   useEffect(() => {
     if (!isFocused) {
       const formattedValue = currencyFormatter.format(value / 100)
-      if (inputValue !== formattedValue) {
-        setInputValue(formattedValue)
-      }
+      setInputValue(formattedValue)
     }
   }, [value, currencyFormatter, isFocused])
 
@@ -49,10 +47,8 @@ export default function MoneyInput({
     const sanitizedValue = sanitizeValue(inputValue)
     if (!isNaN(sanitizedValue)) {
       const valueInCents = convertToCents(sanitizedValue)
-      onValueChange(valueInCents)
       console.log(`Value in cents: ${valueInCents}`)
-      const formattedValue = currencyFormatter.format(sanitizedValue / 100)
-      setInputValue(formattedValue)
+      onValueChange(valueInCents)
     }
     setIsFocused(false)
   }

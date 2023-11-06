@@ -5,7 +5,7 @@ const convertToCents = (value: number): number => {
 }
 
 //Force sanitization of user input
-//To prevent the formatter from breaking
+//Ensure a proper numeric format
 const sanitizeValue = (value: string) => {
   value = value.replace(/[^\d,.]+/g, '')
   const parts = value.split(/[,.]/)
